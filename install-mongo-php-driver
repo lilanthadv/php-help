@@ -1,6 +1,3 @@
-// install mongo
-sudo pecl7 install mongodb
-
 sudo yum -y install php7-pear php70-devel gcc  // completed
 sudo pecl7 install mongodb                     // completed 
 sudo yum install openssl-devel  
