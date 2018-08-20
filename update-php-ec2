@@ -1,0 +1,87 @@
+Copy of https://gist.github.com/heathdutton/98b00aa90be2ef80c80a5090456c329b
+
+#!/usr/bin/env bash
+# Upgrade an Amazon Linux PHP 7.0 EC2 to PHP 7.1
+#
+# Must be ran as sudo:
+#     sudo bash upgrade-php71.sh
+#
+# Can be added to ./.ebextensions/20_php.config like so:
+#	container_commands:
+#	  20_php71_upgrade:
+#	    command: sudo bash scripts/upgrade-php71.sh
+
+set -e
+cd /tmp
+
+# Enable remi-php71 (rpm no longer needed)
+# wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+# rpm -Uvh remi-release-6*.rpm
+yum-config-manager --enable remi-php71
+
+# Get RPM package (rpm no longer needed)
+# wget ftp://195.220.108.108/linux/epel/6/x86_64/scl-utils-20120229-1.el6.x86_64.rpm
+# rpm -Uvh scl-utils-20120229-1.el6.x86_64.rpm
+
+# Remove PHP 7.0 (excessive, but deterministic)
+yum remove php70 -y
+yum remove php70-cli -y
+yum remove php70-bcmath -y
+yum remove php70-common -y
+yum remove php70-devel -y
+yum remove php70-gd -y
+yum remove php70-intl -y
+yum remove php70-json -y
+yum remove php70-mbstring -y
+yum remove php70-mcrypt -y
+yum remove php70-mysqlnd -y
+yum remove php70-odbc -y
+yum remove php70-opcache -y
+yum remove php70-pdo -y
+yum remove php70-pecl-apcu -y
+yum remove php70-pecl-igbinary -y
+yum remove php70-pecl-imagick -y
+yum remove php70-pecl-memcache -y
+yum remove php70-pecl-memcached -y
+yum remove php70-pecl-oauth -y
+yum remove php70-pecl-ssh2 -y
+yum remove php70-pecl-uuid -y
+yum remove php70-pgsql -y
+yum remove php70-process -y
+yum remove php70-soap -y
+yum remove php70-xml -y
+yum remove php70-xmlrpc -y
+
+# Install PHP 7.1
+yum install php71 -y
+yum install php71-cli -y
+yum install php71-bcmath -y
+yum install php71-common -y
+yum install php71-devel -y
+yum install php71-gd -y
+yum install php71-intl -y
+yum install php71-json -y
+yum install php71-mbstring -y
+yum install php71-mcrypt -y
+yum install php71-mysqlnd -y
+# Shouldn't be necessary
+yum install php71-php-pecl-mysql -y
+yum install php71-odbc -y
+yum install php71-opcache -y
+yum install php71-pdo -y
+yum install php71-pecl-apcu -y
+yum install php71-pecl-igbinary -y
+# yum install php71-pecl-imagick -y
+yum install php71-pecl-memcache -y
+yum install php71-pecl-memcached -y
+# yum install php71-pecl-oauth -y
+# yum install php71-pecl-ssh2 -y
+# yum install php71-pecl-uuid -y
+yum install php71-pgsql -y
+yum install php71-process -y
+yum install php71-soap -y
+yum install php71-xml -y
+yum install php71-xmlrpc -y
+
+# Restart Apache.
+service httpd restart
