@@ -5,3 +5,7 @@ sudo yum install openssl-devel
 
 // add extention to php.ini
 extension=mongodb.so
+
+//add this extention to those files
+sudo nano php.ini
+sudo nano php-7.0.ini
