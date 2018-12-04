@@ -1,0 +1,39 @@
+Larvel Help Gide 
+
+#############################################
+
+Larval Set Permission
+…………………………………………………………………………………………….
+
+rm -rf storage/logs/laravel.logs
+chmod -R 777 storage,
+php artisan cache:clear,
+php artisan composer dump-autoload
+
+Create a Constant File
+…………………………………………………………………………………………….
+
+Create a new file in the app/config directory. Let's call it constants.php
+In there you have to return an array of config values.
+
+return [
+    'langs' => [
+        'es' => 'www.domain.es',
+        'en' => 'www.domain.us'
+        // etc
+    ]
+];
+
+And you can access them as follows
+
+Config::get('constants.langs');
+
+// or if you want a specific one
+
+Config::get('constants.langs.en');
+
+And you can set them as well
+
+Config::set('foo.bar', 'test');
+
+
